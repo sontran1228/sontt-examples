@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<portlet-app version="1.0"
+	xmlns="http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd">
+
+	<portlet>
+		<description xml:lang="EN">My First Event Publisher Portlet</description>
+		<portlet-name>MyEventPublisherPortlet</portlet-name>
+		<display-name xml:lang="EN">MyEventPublisherPortlet</display-name>
+		<portlet-class>org.exoplatform.example.MyPublisherPortlet</portlet-class>
+
+		<supports>
+
+			<mime-type>text/html</mime-type>
+
+			<portlet-mode>VIEW</portlet-mode>
+
+			<portlet-mode>HELP</portlet-mode>
+
+		</supports>
+
+
+		<supported-locale>en</supported-locale>
+
+		<portlet-info>
+			<title>My Event Publisher Portlet</title>
+			<short-title>Event Publisher Portlet</short-title>
+			<keywords>MyPortlet</keywords>
+		</portlet-info>
+
+		<supported-publishing-event>
+
+			<qname xmlns:x="http:mycompany.com/events">x:contactInfo</qname>
+
+		</supported-publishing-event>
+
+	</portlet>
+
+	<event-definition>
+
+		<qname xmlns:x="http:mycompany.com/events">x:contactInfo</qname>
+
+		<value-type>java.lang.String</value-type>
+
+	</event-definition>
+
+</portlet-app>

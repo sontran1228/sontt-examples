@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bundle>
+	<UITestStringInput>
+		<label>
+			<UITestPortletTextStringInput>Text</UITestPortletTextStringInput>
+		</label>
+		<action>
+			<Save>Lu*u</Save>
+			<Cancel>Hu?y</Cancel>
+		</action>
+	</UITestStringInput>
+</bundle>

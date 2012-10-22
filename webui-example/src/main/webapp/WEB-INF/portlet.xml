@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<portlet-app version="1.0"
+	xmlns="http://java.sun.com/xml/ns/portlet/portlet-app_1_0.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/portlet/portlet-app_1_0.xsd http://java.sun.com/xml/ns/portlet/portlet-app_1_0.xsd">
+	<portlet>
+		<description xml:lang="EN">Test WebUI Portletf</description>
+		<portlet-name>TestWebUIPortlet</portlet-name>
+		<display-name xml:lang="EN">Test WebUI Portlet</display-name>
+		<portlet-class>org.exoplatform.webui.application.portlet.PortletApplicationController</portlet-class>
+		<init-param>
+			<name>webui.configuration</name>
+			<value>/WEB-INF/conf/webui/portlet/configuration.xml</value>
+		</init-param>
+		<expiration-cache>0</expiration-cache>
+		<supports>
+			<mime-type>text/html</mime-type>
+			<portlet-mode>view</portlet-mode>
+			<portlet-mode>edit</portlet-mode>
+		</supports>
+		<supported-locale>en</supported-locale>
+		<resource-bundle>locale.webui.portlet.TestWebUIPortlet</resource-bundle>
+		<portlet-info>
+			<title>Test WebUI Portlet</title>
+			<short-title>Test WebUI Portlet</short-title>
+			<keywords>Test WebUI Portlet</keywords>
+		</portlet-info>
+		<portlet-preferences>
+			<preference>
+				<name>text</name>
+				<value>Hello World</value>
+				<read-only>false</read-only>
+			</preference>
+		</portlet-preferences>
+	</portlet>
+</portlet-app>
