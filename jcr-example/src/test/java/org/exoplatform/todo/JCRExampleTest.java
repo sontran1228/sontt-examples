@@ -36,7 +36,7 @@ import org.exoplatform.services.jcr.impl.core.value.DoubleValue;
 /**
  * Unit test for simple App.
  */
-public class AppTest extends TestCase 
+public class JCRExampleTest extends TestCase 
 {
 	private RepositoryService repoService;
 
@@ -99,17 +99,17 @@ public class AppTest extends TestCase
 		
 		// Get root node
 		Node rootNode = session.getRootNode();
-		Node encyclopedia = rootNode.addNode("wiki:encyclopedia");
-		Node p = encyclopedia.addNode("wiki:entry");
-		p.setProperty("wiki:title", new String("JAVA"));
-		p.setProperty("wiki:content", new String("java"));
-		p.setProperty("wiki:category", new String[] { "programing language",
+		Node encyclopedia = rootNode.addNode("todo:todosList");
+		Node node1 = encyclopedia.addNode("todo:entry");
+		node1.setProperty("todo:title", new String("JAVA"));
+		node1.setProperty("todo:content", new String("java"));
+		node1.setProperty("todo:category", new String[] { "programing language",
 				"sun" });
 
-		Node n = encyclopedia.addNode("wiki:entry");
-		n.setProperty("wiki:title", new String("November Rain"));
-		n.setProperty("wiki:content", new String("A song of Gun and Rose"));
-		n.setProperty("wiki:category", new String[] { "song", "music" });
+		Node n = encyclopedia.addNode("todo:entry");
+		n.setProperty("todo:title", new String(".Net"));
+		n.setProperty("todo:content", new String(".Net"));
+		n.setProperty("todo:category", new String[] { "programming language", "Microsoft" });
 		session.save();
 		session.logout();
 		
@@ -125,18 +125,18 @@ public class AppTest extends TestCase
 		assertNotNull(session);
 
 		Node rootNode = session.getRootNode();
-		Node encyclopedia = rootNode.getNode("wiki:encyclopedia");
-		NodeIterator entries = encyclopedia.getNodes("wiki:entry");
+		Node encyclopedia = rootNode.getNode("todo:todosList");
+		NodeIterator entries = encyclopedia.getNodes("todo:entry");
 		while (entries.hasNext()) {
 			Node entry = entries.nextNode();
 
 			System.out.println("Name: " + entry.getName());
-			System.out.println("Title: " + entry.getProperty("wiki:title").getString());
+			System.out.println("Title: " + entry.getProperty("todo:title").getString());
 			System.out.println("Content: "
-					+ entry.getProperty("wiki:content").getString());
+					+ entry.getProperty("todo:content").getString());
 			System.out.println("Path: " + entry.getPath());
 
-			Property category = entry.getProperty("wiki:category");
+			Property category = entry.getProperty("todo:category");
 
 			try {
 				String c = category.getValue().getString();
@@ -163,7 +163,7 @@ public class AppTest extends TestCase
 
 		QueryManager qm = ws.getQueryManager();
 		Query q = qm.createQuery(
-				"//wiki:encyclopedia/wiki:entry[@wiki:title = 'JAVA']",
+				"//todo:todosList/todo:entry[@todo:title = 'JAVA']",
 				Query.XPATH);
 
 		QueryResult result = q.execute();
@@ -172,8 +172,8 @@ public class AppTest extends TestCase
 		while (it.hasNext()) {
 			Node n = it.nextNode();
 			System.out.println("Name: " + n.getName());
-			System.out.println("Title: " + n.getProperty("wiki:title").getString());
-			System.out.println("Content: " + n.getProperty("wiki:content").getString());
+			System.out.println("Title: " + n.getProperty("todo:title").getString());
+			System.out.println("Content: " + n.getProperty("todo:content").getString());
 		}
 		session.logout();
 	}
@@ -189,7 +189,7 @@ public class AppTest extends TestCase
 		QueryManager qman = ws.getQueryManager();
 		Query q = qman
 				.createQuery(
-						"SELECT * FROM nt:base WHERE CONTAINS(wiki:tile, 'java')",
+						"SELECT * FROM nt:unstructured WHERE CONTAINS(todo:tile, 'java')",
 						Query.SQL);
 		QueryResult result = q.execute();
 		NodeIterator it = result.getNodes();
@@ -197,8 +197,8 @@ public class AppTest extends TestCase
 		while (it.hasNext()) {
 			Node n = it.nextNode();
 			System.out.println("Name: " + n.getName());
-			System.out.println("Title: " + n.getProperty("wiki:title").getString());
-			System.out.println("Content: " + n.getProperty("wiki:content").getString());
+			System.out.println("Title: " + n.getProperty("todo:title").getString());
+			System.out.println("Content: " + n.getProperty("todo:content").getString());
 		}
 		
 		session.logout();
@@ -220,7 +220,7 @@ public class AppTest extends TestCase
 		superTypes.add("nt:base");
 		// Define attributes of this node type
 		ntValue.setName("todo:testRegNT");
-		ntValue.setMixin(true);
+		ntValue.setMixin(false);
 		ntValue.setPrimaryItemName("");
 		ntValue.setDeclaredSupertypeNames(superTypes);
 		
@@ -231,7 +231,7 @@ public class AppTest extends TestCase
 		defValue.add("24");
 		
 		// name: default name (cannot change if assigned).
-		pros.add(new PropertyDefinitionValue("todo:title", true, false, 1, false,
+		pros.add(new PropertyDefinitionValue("title", true, false, 1, false,
 				defValue, true, PropertyType.DOUBLE, new ArrayList<String>()));
 		ntValue.setDeclaredPropertyDefinitionValues(pros);
 		extendedNTManager.registerNodeType(ntValue, ExtendedNodeTypeManager.FAIL_IF_EXISTS);
@@ -243,10 +243,10 @@ public class AppTest extends TestCase
 		dv[0] = new DoubleValue(30);
 		dv[1] = new DoubleValue(31);
 		dv[2] = new DoubleValue(32);
-		testNode.setProperty("todo:title", dv);
+		testNode.setProperty("title", dv);
 		
 		session.save();
-		Property property = testNode.getProperty("studentAge");
+		Property property = testNode.getProperty("title");
 		System.out.println(property.getName());
 		Value[] value = property.getValues();
 		for (Value v : value) {

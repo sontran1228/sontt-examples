@@ -137,7 +137,7 @@
 			<init-params>
 				<properties-param>
 					<name>namespaces</name>
-					<property name="wiki" value="http://test.org/" />
+					<property name="todo" value="todos.com" />
 				</properties-param>
 			</init-params>
 		</component-plugin>
