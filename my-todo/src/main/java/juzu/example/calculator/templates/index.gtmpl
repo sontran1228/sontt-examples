@@ -1,0 +1,30 @@
+<html lang="en">
+<head>
+   <meta charset="utf-8" />
+   <title>jQuery UI Tabs - Default functionality</title>
+   <script>
+      $(function() {
+         $("#TodoApplication").tabs();
+         $("a, label").button();
+      });
+   </script>
+</head>
+<body> 
+   <div id="TodoApplication">
+      <ul>
+         <li><a href="#ListTodos">My List</a></li>    
+      </ul>
+      <p id="NewTodo">
+         <select id="NewPriorityInput" class="Priority Border-Background">
+            <option value="0">None</option>
+            <option value="1">High</option>
+            <option value="2">Med</option>
+            <option value="3">Low</option>
+         </select>
+         <input id="NewTodoInput" class="Border-Background" placeholder="What needs to be done?"/>
+      </p>
+      <div id="ListTodos">
+      </div>
+   </div>
+</body>
+</html>
