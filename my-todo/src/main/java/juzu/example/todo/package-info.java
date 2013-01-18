@@ -1,5 +1,5 @@
 // This annotation declares a Juzu application
-@Application(defaultController = juzu.example.calculator.Calculator.class)
+@Application(defaultController = juzu.example.todo.TodoApplication.class)
 
 // defines the route of the application when the application is used as a servlet: domainName/contextPath/routeName
 @Route("/index")
@@ -15,10 +15,10 @@
    ,scripts={
       @Script(id="jquery", src = "resources/js/jquery-1.8.3.js")
       ,@Script(id="jquery-ui", src="resources/js/jquery-ui-1.9.2.js", depends="jquery")
-      ,@Script(id="addtodo", src="resources/js/addtodo.js", depends="jquery")
+      ,@Script(id="todoapp", src="resources/js/todoapp.js", depends="jquery")
    }
    , location= AssetLocation.SERVER)
-package juzu.example.calculator;
+package juzu.example.todo;
 
 import juzu.asset.AssetLocation;
 import juzu.Application;
