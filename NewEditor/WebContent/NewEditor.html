@@ -1,0 +1,298 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!-- <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"> -->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" type="text/css" media="screen" href="css/bootstrap.css" />
+<link rel="stylesheet" type="text/css" href="css/application.css" />
+<link rel="stylesheet" type="text/css" href="css/layouts.css" />
+<link rel="stylesheet" type="text/css" href="css/NewEditor.css" />
+<link rel="stylesheet" type="text/css" href="css/jquery-ui-1.9.2.css" />
+<script type="text/javascript" src="js/jquery-1.8.3.js"></script>
+<script type="text/javascript" src="js/UIDragDrop.js"></script>
+<script type="text/javascript" src="js/bootstrap.js"></script>
+<script type="text/javascript" src="js/jquery-ui-1.9.2.js"></script>
+<title>In Place Editing</title>
+<style type="text/css">
+.ui-selected { background: #F39814; color: white; }
+</style>
+<script type="text/javascript">
+	$(function() {
+		$('#UIApplicationContainer').accordion();
+		$('#UILayoutContainer').accordion();
+		uiDragDrop.init(['DragObjectPortlet']);
+		
+		$('#AppsTab').on('click', function() {
+			$('#UIApplicationContainer').show();
+			$('#UILayoutContainer').hide();
+		});
+		
+		$('#LayoutsTab').on('click', function() {
+			$('#UIApplicationContainer').hide();
+			$('#UILayoutContainer').show();
+		});
+	});
+</script>
+</head>
+<body>
+	<div id="UIPage">
+		<div id="UIPageEditor">
+			<div class="UITabsContainer">
+				<div id="AppsTab" class="UITab">
+					<div>
+						<img src="css/images/apps.png" />
+						<div>
+							<label>Apps</label>
+						</div>
+					</div>
+				</div>
+
+				<div id="LayoutsTab" class="UITab">
+					<div>
+						<img src="css/images/layouts.png" />
+						<div>
+							<label>Layout</label>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="UIContextualSearchContainer">
+				<div class="UISearch">
+					<input type="text" placeholder="Search" class="ImageTextBoxSearch" />
+				</div>
+			</div>
+
+			<div class="UIMainContentContainer">
+				<div id="UIApplicationContainer">
+					<h2>
+						<a href="#">Addministrator</a>
+					</h2>
+					<div id="AddministratorApp" class="AppsContainer">
+						<div id="Administration-ApplicationRegistryPortlet" class="DragObjectPortlet">
+							<div>
+								<img src="http://localhost:8080/eXoResources/skin/sharedImages/Icon80x80/DefaultPortlet.png"/>
+								<div><label>Application Registry</label></div>
+							</div>
+						</div>
+						
+						<div id="Administration-AccountPortlet" class="DragObjectPortlet">
+							<div>
+								<img src="http://localhost:8080/exoadmin/skin/DefaultSkin/portletIcons/AccountPortlet.png"/>
+								<div><label>New Account</label></div>
+							</div>
+						</div>
+						
+						<div id="Administration-OrganizationPortlet" class="DragObjectPortlet">
+							<div>
+								<img src="http://localhost:8080/exoadmin/skin/DefaultSkin/portletIcons/OrganizationPortlet.png"/>
+								<div><label>Organization Management</label></div>
+							</div>
+						</div>
+					</div>
+					
+					<h2>
+						<a href="#">Dashboard</a>
+					</h2>
+					<div id="Dasboard" class="AppsContainer">
+						<div id="dashboard-DashboardPortlet" class="DragObjectPortlet">
+							<div>
+								<img src="http://localhost:8080/eXoResources/skin/sharedImages/Icon80x80/DefaultPortlet.png"/>
+								<div><label>Dashboard Portlet</label></div>
+							</div>
+						</div>
+						
+						<div id="dashboard-GadgetPortlet" class="DragObjectPortlet">
+							<div>
+								<img src="http://localhost:8080/eXoResources/skin/sharedImages/Icon80x80/DefaultPortlet.png" />
+								<div><label>Gadget Wrapper Portlet</label></div>
+							</div>
+						</div>
+					</div>
+					
+					<h2>
+						<a href="#">Gadget</a>
+					</h2>
+					<div id="Gadget">
+						<div id="Gadgets-Calculator" class="DragObjectPortlet">
+							<div>
+								<img src="http://localhost:8080/rest/jcr/repository/portal-system/production/app:gadgets/app:Calculator/app:data/app:resources/images/Calculator.gif" />
+								<div><label>Calculator</label></div>
+							</div>
+						</div>
+						
+						<div id="Gadgets-Calendar" class="DragObjectPortlet">
+							<div>
+								<img src="http://localhost:8080/rest/jcr/repository/portal-system/production/app:gadgets/app:Calendar/app:data/app:resources/images/Calendar.gif" />
+								<div><label>Calendar</label></div>
+							</div>
+						</div>
+					</div>
+					
+					<h2>
+						<a href="#">Web</a>
+					</h2>
+					<div id="Web">
+						<div id="web-IFramePortlet" class="DragObjectPortlet">
+							<div>
+								<img src="http://localhost:8080/eXoResources/skin/sharedImages/Icon80x80/DefaultPortlet.png" />
+								<div><label>IFrame</label></div>
+							</div>
+						</div>
+						
+						<div id="web-iteMapPortlet" class="DragObjectPortlet">
+							<div>
+								<img src="http://localhost:8080/web/skin/DefaultSkin/portletIcons/SiteMapPortlet.png" />
+								<div><label>SiteMap</label></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			
+				<div id="UILayoutContainer" style="display:none">
+					<h2>
+						<a href="#">Basic</a>
+					</h2>
+					<div id="LayoutBasic" class="AppsContainer">
+						<div id="LayoutBasic-1column">
+							<div class="SelectObjectPortlet">
+								<img src="http://localhost:8080/eXoResources/skin/sharedImages/Icon80x80/DefaultPortlet.png" />
+								<div><label>1 column</label></div>
+							</div>
+						</div>
+
+						<div id="LayoutBasic-2columns50-50">
+							<div class="SelectObjectPortlet">
+								<img src="http://localhost:8080/eXoResources/skin/sharedImages/Icon80x80/DefaultPortlet.png" />
+								<div><label>2 columns 50/50</label></div>
+							</div>
+						</div>
+
+						<div id="LayoutBasic-2columns30-70">
+							<div class="SelectObjectPortlet">
+								<img src="http://localhost:8080/eXoResources/skin/sharedImages/Icon80x80/DefaultPortlet.png" />
+								<div><label>2 columns 30/70</label></div>
+							</div>
+						</div>
+
+						<div id="LayoutBasic-2columns70-30">
+							<div class="SelectObjectPortlet">
+								<img src="http://localhost:8080/eXoResources/skin/sharedImages/Icon80x80/DefaultPortlet.png" />
+								<div><label>2 columns 70/30</label></div>
+							</div>
+						</div>
+					</div>
+					
+					<h2>
+						<a href="#">Three columns</a>
+					</h2>
+					<div id="LayoutThreeColumns" class="AppsContainer">
+						<div id="LayoutThreeColumns-3columns">
+							<div class="SelectObjectPortlet">
+								<img src="http://localhost:8080/eXoResources/skin/sharedImages/Icon80x80/DefaultPortlet.png" />
+								<div><label>3 columns</label></div>
+							</div>
+						</div>
+						
+						<div id="LayoutThreeColumns-header2columns50-50">
+							<div class="SelectObjectPortlet">
+								<img src="http://localhost:8080/eXoResources/skin/sharedImages/Icon80x80/DefaultPortlet.png" />
+								<div><label>header + 2 columns 50/50</label></div>
+							</div>
+						</div>
+						
+						<div id="LayoutThreeColumns-header2columns30-70">
+							<div class="SelectObjectPortlet">
+								<img src="http://localhost:8080/eXoResources/skin/sharedImages/Icon80x80/DefaultPortlet.png" />
+								<div><label>header + 2 columns 30/70</label></div>
+							</div>
+						</div>
+						
+						<div id="LayoutThreeColumns-header2columns70-30">
+							<div class="SelectObjectPortlet">
+								<img src="http://localhost:8080/eXoResources/skin/sharedImages/Icon80x80/DefaultPortlet.png" />
+								<div><label>header + 2 columns 70/30</label></div>
+							</div>
+						</div>
+						
+						<div id="LayoutThreeColumns-3rows">
+							<div class="SelectObjectPortlet">
+								<img src="http://localhost:8080/eXoResources/skin/sharedImages/Icon80x80/DefaultPortlet.png" />
+								<div><label>3 rows</label></div>
+							</div>
+						</div>
+						
+						<div id="LayoutThreeColumns-footer2columns50-50">
+							<div class="SelectObjectPortlet">
+								<img src="http://localhost:8080/eXoResources/skin/sharedImages/Icon80x80/DefaultPortlet.png" />
+								<div><label>footer + 2 columns 50/50</label></div>
+							</div>
+						</div>
+						
+						<div id="LayoutThreeColumns-footer2columns30-70">
+							<div class="SelectObjectPortlet">
+								<img src="http://localhost:8080/eXoResources/skin/sharedImages/Icon80x80/DefaultPortlet.png" />
+								<div><label>footer + 2 columns 30/70</label></div>
+							</div>
+						</div>
+						
+						<div id="LayoutThreeColumns-footer2columns70-30">
+							<div class="SelectObjectPortlet">
+								<img src="http://localhost:8080/eXoResources/skin/sharedImages/Icon80x80/DefaultPortlet.png" />
+								<div><label>footer + 2 columns 70/30</label></div>
+							</div>
+						</div>
+					</div>						
+				
+					<h2>
+						<a href="#">Four columns</a>
+					</h2>
+					<div id="LayoutFourColumns" class="AppsContainer">
+						<div id="LayoutFourColumns-4columns7030-3070">
+							<div class="SelectObjectPortlet">
+								<img src="http://localhost:8080/eXoResources/skin/sharedImages/Icon80x80/DefaultPortlet.png" />
+								<div><label>4 colums 70/30 + 30/70</label></div>
+							</div>
+						</div>
+						
+						<div id="LayoutFourColumns-headerfooter2columns50-50">
+							<div class="SelectObjectPortlet">
+								<img src="http://localhost:8080/eXoResources/skin/sharedImages/Icon80x80/DefaultPortlet.png" />
+								<div><label>header + footer + 2 colums 50/50</label></div>
+							</div>
+						</div>
+						
+						<div id="LayoutFourColumns-headerfooter2columns30-70">
+							<div class="SelectObjectPortlet">
+								<img src="http://localhost:8080/eXoResources/skin/sharedImages/Icon80x80/DefaultPortlet.png" />
+								<div><label>header + footer + 2 colums 30/70</label></div>
+							</div>
+						</div>
+						
+						<div id="LayoutFourColumns-headerfooter2columns70-30">
+							<div class="SelectObjectPortlet">
+								<img src="http://localhost:8080/eXoResources/skin/sharedImages/Icon80x80/DefaultPortlet.png" />
+								<div><label>header + footer + 2 colums 70/30</label></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+		</div>
+
+		<div id="UIPageContent">
+			<div id="onezone" class="row-fluid">
+				<div id="zone1" class="span12"></div>
+				<div >
+					<div id="zone2" class="span4"></div>
+					<div id="zone3" class="span8"></div>
+				</div>
+				<div>
+					<div id="zone4" class="span12"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
