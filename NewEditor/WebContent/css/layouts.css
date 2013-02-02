@@ -1,17 +1,31 @@
 @CHARSET "UTF-8";
 
-#zone1 {
-	min-height: 100px;
+#AddministratorApp {
+	background-color: #EEE8AA;
 }
 
-#zone2 {
-	min-height: 100px;
+.outerzone {
+	border: 1px solid red;
 }
 
-#zone3 {
-	min-height: 100px;
+.application {
+	border: 1px solid #CCC;
+	text-align: center;
 }
 
-#zone4 {
-	min-height: 100px;
+.span1,.span2,.span3,.span4,.span5,.span6,.span7,.span8,.span9,.span10,.span11,.span12
+	{
+	border: 1px solid black;
+}
+
+.row-fluid [id*="zone"] {
+	min-height: 80px;
+}
+
+.ui-state-highlight {
+	height: 60px;
+}
+
+.no-space [class*="span"] {
+	margin-left: 0;
 }

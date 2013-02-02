@@ -1,5 +1,7 @@
 package juzu.example.todo;
 
+import juzu.Response;
+
 import juzu.Resource;
 
 import juzu.plugin.ajax.Ajax;
@@ -37,6 +39,5 @@ public class TodoApplication
    public void saveTodo(String id, String content, String priority, String status)
    {
       Todo todo = Todo.saveTodo(id, content, priority, status);
-      
    }
 }

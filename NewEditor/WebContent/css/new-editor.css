@@ -15,6 +15,11 @@
 	max-width: 900px;
 }
 
+#AddministratorApp {
+	margin-bottom: 20px;
+	background-color: #EEE8AA;
+}
+
 /* TabsContainer css */
 .UITabsContainer {
 	height: 50px;
