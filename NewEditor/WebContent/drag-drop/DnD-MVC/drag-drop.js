@@ -85,7 +85,7 @@ $(function() {
 					if(_layoutNumber == 1) {
 						_item.addClass('application-vlayout');
 						var _width = _item.width() + new Number(_item.css('margin-left').replace('px',''));
-						$(this).css({'width' : $(this).width() + _width});
+						$(this).css('width', $(this).width() + _width);
 					}
 				} else {
 					if(_layoutNumber != undefined) {
@@ -141,7 +141,7 @@ $(function() {
 				$(this).addClass('application-vlayout');
 				_width += $(this).width() + new Number($(this).css('margin-left').replace('px',''));
 			});			
-			_zone1.removeClass(_zone1.attr('class').match(/span[1-9]+/g).join(', ')).css({'border' : 'none', 'width' : _width, 'min-width' : 100});
+			_zone1.removeClass(_zone1.attr('class').match(/span[1-9]+/g).join(', ')).css({'border' : 'none', 'width' : _width,});
 			_zone1.wrap(_wrapper);
 		} else {
 			_zone1.children('div.application').removeClass('application-vlayout');
