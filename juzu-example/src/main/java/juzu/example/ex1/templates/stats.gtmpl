@@ -1,0 +1,11 @@
+#{param name=completedItems/}
+#{param name=remainingItems/}
+#{param name=totalItems/}
+
+<% if(completedItems > 0) { %>
+   <a id="clear-completed">Clear ${completedItems} completed <% completedItems == 1 ? 'item' : 'items' %></a>
+<%}
+   if(totalItems > 0) { %>
+<div class="todo-count"><b> ${remainingItems} </b> <% remainingItems == 1 ? 'item' : 'items' %> left</div>
+<%}%>
+	
