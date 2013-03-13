@@ -1,5 +1,18 @@
 package juzu.example.ex1;
 
+import juzu.impl.request.Request;
+
+import juzu.impl.request.Parameter;
+
+import juzu.request.RequestContext;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import juzu.impl.common.JSONParser;
+
+import juzu.impl.common.JSON;
+
 import juzu.Action;
 
 import juzu.Route;
@@ -18,7 +31,9 @@ import juzu.template.Template;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -26,53 +41,75 @@ public class JuzuExample
 {
    @Inject
    @Path("index.gtmpl")
-   juzu.example.ex1.templates.index index;
+   Template index;
 
    @Inject
-   @Path("newtodo.gtmpl")
-   juzu.example.ex1.templates.newtodo newtodo;
-
-   @Inject
-   @Path("stats.gtmpl")
-   juzu.example.ex1.templates.stats stats;
+   @Path("jsontmpl.gtmpl")
+   juzu.example.ex1.templates.jsontmpl todoJSon;
 
    @View
    @Route("/")
    public void index() throws IOException
    {
-      List<Todo> todos = Todo.getTodos();
-      index.with().todos(todos).render();
+      //List<Todo> todos = Todo.getTodos();
+      index.render();
    }
-   
+
    @Ajax
    @Resource
-   @Route("/todoAdd")
-   public void todoAdd(String id, String title, String completed) 
+   @Route("/getTodo")
+   public void getTodo() throws Exception
    {
-      Todo _todo = Todo.saveTodo(Integer.parseInt(id), title, Boolean.parseBoolean(completed));
-      newtodo.with().todo(_todo).render();
+      System.out.println("get all todos");
+      todoJSon.with().todo(Todo.getTodos().toString()).render();//Response.ok(Todo.getTodos().toString());
    }
-   
+
    @Ajax
    @Resource
-   @Route("/stats")
-   public void getStats()
+   @Route("/addTodo")
+   public void addTodo(String title, String order, String done)
    {
-      List<Todo> todos = Todo.getTodos();
-      int _completedItems = 0, _remainingItems = 0;
-      for (Todo _todo : todos)
-      {
-         if(_todo.completed)
-            _completedItems++;
-      }
-      _remainingItems = todos.size() - _completedItems;
-      stats.with().completedItems(_completedItems).remainingItems(_remainingItems).totalItems(todos.size()).render();
+      Todo _todo = Todo.saveTodo(-1, title, Boolean.parseBoolean(done));
+      todoJSon.with().todo(_todo.toJSONString(_todo)).render();
    }
-   
+
    @Ajax
    @Resource
-   @Route("/todoDelete")
-   public void todoDelete(String id) {
+   @Route("/editTodo")
+   public void editTodo(String id, String title, String done)
+   {
+      Todo _todo = Todo.saveTodo(Integer.parseInt(id), title, Boolean.parseBoolean(done));
+      todoJSon.with().todo(_todo.toJSONString(_todo)).render();
+   }
+
+   @Ajax
+   @Resource
+   @Route("/deleteTodo")
+   public void deleteTodo(String id)
+   {
       Todo.deleteTodo(Integer.parseInt(id));
+      index.render();
+   }
+
+   @Action
+   @Route("/completeAll")
+   public Response completeAll(String done)
+   {
+      boolean _done = false;
+      if(done == null || done.trim().endsWith("null")) {
+         _done = false;
+      } else {
+         _done = true;
+      }
+      Todo.completeAll(_done);
+      return JuzuExample_.index();
+   }
+   
+   @Action
+   @Route("/deleteCompleted")
+   public Response deleteCompleted()
+   {
+      Todo.deleteCompleted();
+      return JuzuExample_.index();
    }
 }

@@ -5,9 +5,12 @@
 @Servlet("/")
 @Assets(
    scripts = {
-      @Script(id = "jquery", src="resources/js/jquery.js")
-      , @Script(id = "juzu.ajax", src="resources/js/jz-ajax.js", depends = "jquery" )
-      , @Script(id = "juzu.todo", src="resources/js/jz-todo.js", depends = "jquery" )
+      @Script(id = "json", src="resources/js/json2.js")
+      , @Script(id = "jquery", src="resources/js/jquery.js")
+      , @Script(id = "underscore", src="resources/js/underscore.js")
+      , @Script(id = "backbone", src="resources/js/backbone.js", depends = { "jquery","underscore" })
+      , @Script(id = "backbone-storage", src="resources/js/backbone-localstorage.js", depends = { "jquery","backbone" })
+      , @Script(id = "todo", src="resources/js/todos.js", depends = { "jquery","backbone" })
    }
    , stylesheets = {
       @Stylesheet(src="resources/css/todos.css")

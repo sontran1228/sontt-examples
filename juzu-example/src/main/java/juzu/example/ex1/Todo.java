@@ -1,9 +1,13 @@
 package juzu.example.ex1;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
+import java.util.Vector;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Todo
@@ -12,15 +16,15 @@ public class Todo
 
    public String title;
 
-   public boolean completed;
+   public boolean done;
 
    private static AtomicInteger atomicId = new AtomicInteger(100);
 
-   public Todo(String title, boolean completed)
+   public Todo(String title, boolean done)
    {
       this.id = atomicId.getAndIncrement();
       this.title = title;
-      this.completed = completed;
+      this.done = done;
    }
 
    private static final Map<Integer, Todo> todoList = new LinkedHashMap<Integer, Todo>();
@@ -32,42 +36,79 @@ public class Todo
       saveTodo(-1, "test3", false);
    }
 
-   public static void updateTodo(int id, String title, boolean completed)
-   {
-      saveTodo(id, title, completed);
-   }
-
-   public static void createTodo(String title, boolean completed)
-   {
-      saveTodo(-1, title, completed);
-   }
-
    public static void deleteTodo(int id)
    {
-      System.out.println("Delete Todo(id = " + id +")");
+      System.out.println("Delete Todo(id = " + id + ")");
       todoList.remove(id);
    }
 
-   public static Todo saveTodo(int id, String title, boolean completed)
+   public static void completeAll(boolean done)
+   {
+      Iterator<Todo> _itr = todoList.values().iterator();
+      while (_itr.hasNext())
+      {
+         Todo todo = _itr.next();
+         todo.done = done;
+         System.out.println(done);
+      }
+   }
+
+   public static void deleteCompleted()
+   {
+      ArrayList<Integer> ids = new ArrayList<Integer>();
+      Iterator<Todo> _itr = todoList.values().iterator();
+      while (_itr.hasNext())
+      {
+         Todo todo = _itr.next();
+         if (todo.done)
+         {
+            ids.add(todo.id);
+         }
+      }
+
+      for (Integer _id : ids)
+      {
+         deleteTodo(_id.intValue());
+      }
+   }
+
+   public static Todo saveTodo(int id, String title, boolean done)
    {
       Todo todo = todoList.get(id);
       if (todo == null)
       {
-         todo = new Todo(title, completed);
+         todo = new Todo(title, done);
       }
       else
       {
          todo.title = title;
-         todo.completed = completed;
+         todo.done = done;
       }
-      System.out.println("put todo(id = " + todo.id + ", title = " + todo.title + ", completed = " + todo.completed
+      System.out.println("save/update todo(id = " + todo.id + ", title = " + todo.title + ", completed = " + todo.done
          + ")");
       todoList.put(todo.id, todo);
       return todo;
    }
 
-   public static List<Todo> getTodos()
+   public static JSONArray getTodos() throws Exception
    {
-      return new ArrayList<Todo>(todoList.values());
+      JSONArray _jarr = new JSONArray();
+      Iterator<Todo> _itr = todoList.values().iterator();
+      while (_itr.hasNext())
+      {
+         Todo todo = _itr.next();
+         _jarr.put(new JSONObject(todo.toJSONString(todo)));
+      }
+      return _jarr;
+   }
+
+   public String toJSONString(Todo todo)
+   {
+      StringBuffer sb = new StringBuffer();
+      sb.append("{").append(JSONObject.quote("id")).append(":").append(todo.id).append(",")
+         .append(JSONObject.quote("title")).append(":").append(JSONObject.quote(todo.title)).append(",")
+         .append(JSONObject.quote("done")).append(":").append(todo.done).append("}");
+
+      return sb.toString();
    }
 }

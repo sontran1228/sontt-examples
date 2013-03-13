@@ -1,8 +1,3 @@
-// An example Backbone application contributed by
-// [Jérôme Gravel-Niquet](http://jgn.me/). This demo uses a simple
-// [LocalStorage adapter](backbone-localstorage.html)
-// to persist Backbone models within your browser.
-
 // Load the application once the DOM is ready, using `jQuery.ready`:
 $(function(){
 
@@ -46,7 +41,7 @@ $(function(){
     model: Todo,
 
     // Save all of the todo items under the `"todos-backbone"` namespace.
-    localStorage: new Backbone.LocalStorage("todos-backbone"),
+    // localStorage: new Backbone.LocalStorage("todos-backbone"),
 
     // Filter down the list of all todo items that are finished.
     done: function() {
@@ -226,13 +221,15 @@ $(function(){
 
     // Clear all done todo items, destroying their models.
     clearCompleted: function() {
-      _.invoke(Todos.done(), 'destroy');
-      return false;
+      // _.invoke(Todos.done(), 'destroy');
+      // return false;
+    	document.forms["deleteCompleted"].submit();
     },
 
     toggleAllComplete: function () {
       var done = this.allCheckbox.checked;
-      Todos.each(function (todo) { todo.save({'done': done}); });
+      document.forms["completeAll"].submit();
+      //Todos.each(function (todo) { todo.save({'done': done}); });
     }
 
   });

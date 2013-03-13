@@ -6,40 +6,35 @@
       <input id="new-todo" type="text" placeholder="What needs to be done?">
    </header>
 
-   <section id="main" style="display: block;"> 
-      <input id="toggle-all" type="checkbox"> <label for="toggle-all">Markall as complete</label>
+   <section id="main" style="display: block;">
+      <form action="@{JuzuExample.completeAll()}" name="completeAll" method="POST">
+         <input id="toggle-all" type="checkbox" name="done"> <label for="toggle-all">Markall as complete</label>
+      </form>
       <ul id="todo-list">
-         <% if(todos != null) {
-               for( def todo : todos) {
-               %>
-                  <li>
-                     <div class="view" id="${todo.id}">
-                        <input class="toggle" type="checkbox" <%= (todo.completed==true) ? 'checked="checked"' : '' %> />
-                        <label>${todo.title}</label>
-                        <a class="destroy"></a>
-                     </div>
-                     <input class="edit" type="text" value="${todo.title}" />
-                  </li>      
-               <%
-                  if(todo.completed) {
-                     completedItems++;
-                  }
-               }
-         }%>
       </ul>
    </section>
 
    <footer style="display: block;">
-      <% if(completedItems > 0) { %>
-         <a id="clear-completed">Clear ${completedItems} completed <% completedItems == 1 ? 'item' : 'items' %></a>
-      <%}
-      if(todos.size() > 0) { 
-         def remainingItems = todos.size()- completedItems;
-      %>
-           <div class="todo-count"><b> ${remainingItems} </b> <% remainingItems == 1 ? 'item' : 'items' %> left</div>
-      <%}%>
 	</footer>
 
 </div>
 
 <div id="instructions">Double-click to edit a todo.</div>
+
+<script type="text/template" id="item-template">
+   <div class="view">
+     <input class="toggle" type="checkbox" {{= done ? 'checked="checked"' : '' }} />
+     <label>{{- title }}</label>
+     <a class="destroy"></a>
+   </div>
+   <input class="edit" type="text" value="{{- title }}" />
+</script>
+
+<script type="text/template" id="stats-template">
+   {{% if (done) { %}}
+     <form action="@{JuzuExample.deleteCompleted()}" name="deleteCompleted" method="POST">
+        <a id="clear-completed">Clear {{= done }} completed {{= done == 1 ? 'item' : 'items' }}</a>
+     </form>
+   {{% } %}}
+   <div class="todo-count"><b>{{= remaining }}</b> {{= remaining == 1 ? 'item' : 'items' }} left</div>
+</script>

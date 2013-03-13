@@ -130,6 +130,20 @@ Backbone.getSyncMethod = function(model) {
 // Override 'Backbone.sync' to default to localSync,
 // the original 'Backbone.sync' is still available in 'Backbone.ajaxSync'
 Backbone.sync = function(method, model, options, error) {
+	if(method == "read") {
+		options.url = $('div[data-method-id="JuzuExample.getTodo"]').attr('data-url');
+	} else if (method == "create") {
+		options.data="title=" + model.get('title') + "&done=" + model.get('done');
+		options.url = $('div[data-method-id="JuzuExample.addTodo"]').attr('data-url');
+	} else if (method == "update") {
+		Backbone.emulateHTTP=true;
+		options.data="id=" + model.get('id') + "&title=" + model.get('title') + "&done=" + model.get('done');
+		options.url = $('div[data-method-id="JuzuExample.editTodo"]').attr('data-url');
+	} else if (method == "delete") {
+		Backbone.emulateHTTP=true;
+		options.data="id=" + model.get('id');
+		options.url = $('div[data-method-id="JuzuExample.deleteTodo"]').attr('data-url');
+	}
 	return Backbone.getSyncMethod(model).apply(this, [method, model, options, error]);
 };
 

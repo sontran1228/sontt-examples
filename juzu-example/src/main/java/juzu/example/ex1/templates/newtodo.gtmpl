@@ -1,7 +1,0 @@
-#{param name=todo/}
-<div class="view" id="${todo.id}">
-   <input class="toggle" type="checkbox" <%= (todo.completed==true) ? 'checked="checked"' : '' %> />
-   <label>${todo.title}</label>
-   <a class="destroy"></a>
-</div>
-<input class="edit" type="text" value="${todo.title}" />
