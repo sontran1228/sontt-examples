@@ -10,7 +10,7 @@
       , @Script(id = "underscore", src="resources/js/underscore.js")
       , @Script(id = "backbone", src="resources/js/backbone.js", depends = { "jquery","underscore" })
       , @Script(id = "backbone-storage", src="resources/js/backbone-localstorage.js", depends = { "jquery","backbone" })
-      , @Script(id = "todo", src="resources/js/todos.js", depends = { "jquery","backbone" })
+      , @Script(id = "todo", src="resources/js/jz-todo-mvc.js", depends = { "jquery","backbone" })
    }
    , stylesheets = {
       @Stylesheet(src="resources/css/todos.css")

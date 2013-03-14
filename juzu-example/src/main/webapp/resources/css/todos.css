@@ -1,20 +1,11 @@
-html,
 body {
-	margin: 0;
-	padding: 0;
-}
-
-body {
-	font: 14px "Helvetica Neue", Helvetica, Arial, sans-serif;
-	line-height: 1.4em;
 	background: #eeeeee;
 	color: #333333;
-	width: 520px;
-	margin: 0 auto;
-	-webkit-font-smoothing: antialiased;
 }
 
 #todoapp {
+	width: 520px;
+	margin: 0 auto;
 	background: #fff;
 	padding: 20px;
 	margin-bottom: 40px;
@@ -28,6 +19,8 @@ body {
 	-ms-border-radius: 0 0 5px 5px;
 	-o-border-radius: 0 0 5px 5px;
 	border-radius: 0 0 5px 5px;
+	-webkit-font-smoothing: antialiased;
+	font: 14px "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 #todoapp h1 {

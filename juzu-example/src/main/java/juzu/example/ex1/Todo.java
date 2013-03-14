@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.Vector;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Todo
@@ -49,7 +48,6 @@ public class Todo
       {
          Todo todo = _itr.next();
          todo.done = done;
-         System.out.println(done);
       }
    }
 

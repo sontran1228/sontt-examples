@@ -1,39 +1,15 @@
 package juzu.example.ex1;
 
-import juzu.impl.request.Request;
-
-import juzu.impl.request.Parameter;
-
-import juzu.request.RequestContext;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import juzu.impl.common.JSONParser;
-
-import juzu.impl.common.JSON;
-
-import juzu.Action;
-
-import juzu.Route;
-
-import juzu.Resource;
-
-import juzu.plugin.ajax.Ajax;
-
-import juzu.Response.Render;
-
-import juzu.Response;
-
 import juzu.Path;
+import juzu.Resource;
+import juzu.Route;
 import juzu.View;
+import juzu.plugin.ajax.Ajax;
 import juzu.template.Template;
 
+import org.json.JSONObject;
+
 import java.io.IOException;
-import java.io.InputStream;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -51,7 +27,6 @@ public class JuzuExample
    @Route("/")
    public void index() throws IOException
    {
-      //List<Todo> todos = Todo.getTodos();
       index.render();
    }
 
@@ -60,25 +35,26 @@ public class JuzuExample
    @Route("/getTodo")
    public void getTodo() throws Exception
    {
-      System.out.println("get all todos");
-      todoJSon.with().todo(Todo.getTodos().toString()).render();//Response.ok(Todo.getTodos().toString());
+      todoJSon.with().todo(Todo.getTodos().toString()).render();
    }
 
    @Ajax
    @Resource
    @Route("/addTodo")
-   public void addTodo(String title, String order, String done)
+   public void addTodo(String model) throws Exception
    {
-      Todo _todo = Todo.saveTodo(-1, title, Boolean.parseBoolean(done));
+      JSONObject json = new JSONObject(model);
+      Todo _todo = Todo.saveTodo(-1, json.getString("title"), json.getBoolean("done"));
       todoJSon.with().todo(_todo.toJSONString(_todo)).render();
    }
 
    @Ajax
    @Resource
    @Route("/editTodo")
-   public void editTodo(String id, String title, String done)
+   public void editTodo(String model) throws Exception
    {
-      Todo _todo = Todo.saveTodo(Integer.parseInt(id), title, Boolean.parseBoolean(done));
+      JSONObject json = new JSONObject(model);
+      Todo _todo = Todo.saveTodo(json.getInt("id"), json.getString("title"), json.getBoolean("done"));
       todoJSon.with().todo(_todo.toJSONString(_todo)).render();
    }
 
@@ -91,25 +67,21 @@ public class JuzuExample
       index.render();
    }
 
-   @Action
+   @Ajax
+   @Resource
    @Route("/completeAll")
-   public Response completeAll(String done)
+   public void completeAll(String done) throws Exception
    {
-      boolean _done = false;
-      if(done == null || done.trim().endsWith("null")) {
-         _done = false;
-      } else {
-         _done = true;
-      }
-      Todo.completeAll(_done);
-      return JuzuExample_.index();
+      Todo.completeAll(Boolean.parseBoolean(done));
+      todoJSon.with().todo(Todo.getTodos().toString()).render();
    }
-   
-   @Action
+
+   @Ajax
+   @Resource
    @Route("/deleteCompleted")
-   public Response deleteCompleted()
+   public void deleteCompleted() throws Exception
    {
       Todo.deleteCompleted();
-      return JuzuExample_.index();
+      todoJSon.with().todo(Todo.getTodos().toString()).render();
    }
 }
