@@ -1,0 +1,16 @@
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.exoplatform.org/xml/ns/kernel_1_2.xsd http://www.exoplatform.org/xml/ns/kernel_1_2.xsd"
+	xmlns="http://www.exoplatform.org/xml/ns/kernel_1_2.xsd">
+	<component>
+		<key>org.exoplatform.example.TodoService</key>
+		<type>org.exoplatform.example.TodoServiceImpl</type>
+		<init-params>
+			<values-param>
+				<name>init-todos</name>
+				<value>initTodo1</value>
+				<value>initTodo2</value>
+				<value>initTodo3</value>
+			</values-param>
+		</init-params>
+	</component>
+</configuration>
